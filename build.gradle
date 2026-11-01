@@ -1,0 +1,18 @@
+subprojects {
+    apply plugin: 'java'
+    group = 'com.fairin'
+    version = '0.1.0'
+
+    repositories { mavenCentral() }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release = 8
+    }
+
+    tasks.withType(Jar).configureEach {
+        preserveFileTimestamps = false
+        reproducibleFileOrder = true
+    }
+}
+

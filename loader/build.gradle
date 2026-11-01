@@ -1,0 +1,26 @@
+dependencies {
+    implementation files(rootProject.file('libs/asm-9.7.jar'),
+            rootProject.file('libs/asm-analysis-9.7.jar'),
+            rootProject.file('libs/asm-commons-9.7.jar'),
+            rootProject.file('libs/asm-tree-9.7.jar'))
+}
+
+// embed ASM into the loader jar (single self-contained artifact)
+tasks.named('jar') {
+    archiveBaseName = 'fairin-loader'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    exclude 'module-info.class', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
+    manifest {
+        attributes(
+                'Premain-Class': 'com.fairin.loader.FairinAgent',
+                'Agent-Class': 'com.fairin.loader.FairinAgent',
+                'Main-Class': 'com.fairin.loader.installer.Installer',
+                'Can-Retransform-Classes': 'true',
+                'Implementation-Title': 'Fairin Loader',
+                'Implementation-Version': project.version
+        )
+    }
+}

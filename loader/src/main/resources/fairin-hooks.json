@@ -1,0 +1,10 @@
+[
+  {
+    "class": "net/minecraft/client/Minecraft",
+    "method": "runTick",
+    "desc": "(Z)V",
+    "head": false,
+    "handlerClass": "com/fairin/api/EventBus",
+    "handlerMethod": "fireTick"
+  }
+]

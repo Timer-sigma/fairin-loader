@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fairin Loader — быстрый загрузчик модов для Minecraft 1.14–1.26.x</title>
+<meta name="description" content="Fairin — лёгкий загрузчик модов для Minecraft (1.14–1.26.x). Официальные Mojang-маппинги, клиент и сервер, exe-инсталлер.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <nav>
+    <a class="brand" href="#top"><img src="assets/logo-white.png" alt="Fairin"><span>Fairin</span></a>
+    <div class="links">
+      <a href="#features">Возможности</a>
+      <a href="#install">Установка</a>
+      <a href="#server">Сервер</a>
+      <a href="#mods">Модам</a>
+      <a href="#faq">FAQ</a>
+      <a class="cta" href="#download">Скачать</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero">
+  <img class="hero-logo" src="assets/logo.png" alt="Fairin Loader">
+  <h1>Fairin <span class="accent">Loader</span></h1>
+  <p class="tagline">Быстрый и лёгкий загрузчик модов для Minecraft <b>1.14 → 1.26.x</b></p>
+  <p class="sub">Официальные Mojang-маппинги вместо тысяч хардкодов. Ядро не знает ни одной версии —
+  поэтому лоадер работает и с будущими релизами. Один remap на версию, кэш, нулевая рефлексия в горячем пути.</p>
+  <div class="hero-btns">
+    <a class="btn primary" href="#download">Скачать для Windows</a>
+    <a class="btn ghost" href="#install">Как установить</a>
+  </div>
+  <div class="badges">
+    <span class="badge">клиент + сервер</span>
+    <span class="badge">1.14 – 1.26.x</span>
+    <span class="badge">remap за ~10 c</span>
+    <span class="badge">Java 8+</span>
+  </div>
+</section>
+
+<section id="features">
+  <h2>Возможности</h2>
+  <div class="grid">
+    <div class="card"><h3>⚡ Быстрый</h3><p>Remap всего клиента (~10 000 классов) — единожды на версию, дальше кэш. Запуск игры после лоадера — <b>&lt;0.3 с</b>.</p></div>
+    <div class="card"><h3>🧩 Без версий в ядре</h3><p>Никаких if (version == 1.21). Всё берётся из version JSON и официальных маппингов — 1.14.4+ и все будущие 26.x/27.x.</p></div>
+    <div class="card"><h3>🖥️ Клиент и сервер</h3><p>Выделенный сервер через <code>fairin-server-launch.jar</code>: bundler 1.18+ и жирный jar 1.14–1.17, <code>server_mappings</code>, <code>start.bat</code> из коробки.</p></div>
+    <div class="card"><h3>🪄 Хуки без Mixin</h3><p>Декларативные хуки (<code>fairin-hooks.json</code>) вплетаются ASM'ом в безопасные точки. Тики мода — 20 раз/сек напрямую через MethodHandles.</p></div>
+    <div class="card"><h3>📦 Простой формат модов</h3><p>Обычный jar, одна аннотация <code>@FairinMod</code>, методы <code>@OnInit</code>/<code>@OnTick</code>. Никаких JSON-манифестов.</p></div>
+    <div class="card"><h3>🚀 Ванильный лаунчер</h3><p>Устанавливается как обычный профиль «fairin-версия». Никаких сторонних лаунчеров не требуется.</p></div>
+  </div>
+</section>
+
+<section id="download">
+  <h2>Скачать</h2>
+  <div class="card wide">
+    <table class="dl">
+      <tr><th>Файл</th><th>Что это</th></tr>
+      <tr><td><code>FairinInstaller.exe</code></td><td>Windows-инсталлер (клиент + сервер) — просто запустите. Требуется Java 8+.</td></tr>
+      <tr><td><code>fairin-loader-0.1.0.jar</code></td><td>Ядро лоадера (консоль: <code>java -jar fairin-loader-0.1.0.jar</code>).</td></tr>
+      <tr><td><code>example-0.1.0.jar</code></td><td>Пример мода — положите в <code>mods/</code>.</td></tr>
+    </table>
+    <p class="note">Забирайте актуальные сборки со страницы <a href="https://github.com/YOUR-NAME/fairin-loader/releases">Releases на GitHub</a>.</p>
+  </div>
+</section>
+
+<section id="install">
+  <h2>Установка — клиент</h2>
+  <ol class="steps">
+    <li>Скачайте <b>FairinInstaller.exe</b> и запустите (SmartScreen: «Подробнее → Выполнить в любом случае», файл не подписан).</li>
+    <li>Режим <b>Client</b>, папка <code>%APPDATA%\.minecraft</code> (подставлена сама), выберите версию из списка.</li>
+    <li>Нажмите <b>Install</b>. В лаунчере появится профиль <b>fairin-&lt;версия&gt;</b>.</li>
+    <li>Выберите профиль и играйте. Моды кладите в <code>.minecraft/mods/</code>.</li>
+  </ol>
+  <p class="note">Консольный вариант: <code>java -jar fairin-loader-0.1.0.jar --mc 1.21.11</code></p>
+</section>
+
+<section id="server">
+  <h2>Установка — выделенный сервер</h2>
+  <ol class="steps">
+    <li>В инсталлере переключитесь на <b>Server</b>, выберите папку и версию → <b>Install</b>.
+        Или консолью: <code>java -jar fairin-loader-0.1.0.jar --mc 1.21.11 --server --dir C:\servers\my</code></li>
+    <li>Согласитесь с EULA: <code>eula.txt</code> → <code>eula=true</code>.</li>
+    <li>Запустите <code>start.bat</code> (Windows) или <code>start.sh</code> (Linux).
+        Для 1.20.5+ нужна Java 21+, для 1.18–1.20.4 — Java 17+.</li>
+    <li>Сервер скачает jar Mojang, один раз ремапнет (кэш в <code>fairin-cache/</code>) и стартует. Моды — в <code>mods/</code>.</li>
+  </ol>
+  <p class="note">Как у Fabric: тонкий <code>fairin-server-launch.jar</code> + конфиг <code>fairin-server.json</code> — при новых версиях просто меняйте <code>mcVersion</code>.</p>
+</section>
+
+<section id="mods">
+  <h2>Разработка модов</h2>
+  <div class="card wide">
+<pre><code>import com.fairin.api.FairinMod;
+import com.fairin.api.OnInit;
+import com.fairin.api.OnTick;
+
+@FairinMod(id = "example", name = "My Mod", version = "1.0")
+public class MyMod {
+
+    @OnInit
+    public void init() {
+        System.out.println("Привет, Fairin!");
+    }
+
+    @OnTick
+    public void tick() {
+        // 20 раз в секунду на клиенте
+    }
+}</code></pre>
+    <ul>
+      <li>Один jar — один класс с <code>@FairinMod</code>; кладётся в <code>mods/</code>.</li>
+      <li>Игровые классы доступны в <b>официальных именах</b> Mojang: <code>net.minecraft.client.Minecraft.getInstance()</code> — лоадер ремапит весь Minecraft.</li>
+      <li><code>@OnInit</code> — до открытия окна (клиент и сервер); <code>@OnTick</code> — каждый клиентский тик.</li>
+      <li>Сборка мода: обычный Gradle-проект, зависимость <code>compileOnly</code> на <code>fairin-loader</code>.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="faq">
+  <h2>FAQ</h2>
+  <div class="card wide">
+    <h3>Работает с Forge/Fabric-модами?</h3>
+    <p>Нет. Fairin — самостоятельный загрузчик со своим лёгким форматом модов.</p>
+    <h3>Почему первый запуск дольше?</h3>
+    <p>Один раз на версию: скачиваются маппинги, jar ремапится (~10–15 с). Дальше — кэш.</p>
+    <h3>Какие версии поддерживаются?</h3>
+    <p>Клиент и сервер <b>1.14.4 — 1.26.x</b> (официальные маппинги доступны с 1.14.4; на более старых лоадер запустится, но без хуков в игровые классы).</p>
+    <h3>Какая Java нужна?</h3>
+    <p>Ванильный лаунчер выберет сам. Для своих серверов: 1.20.5+ → Java 21, 1.18–1.20.4 → Java 17, 1.14–1.17 → Java 8+.</p>
+    <h3>Антивирус ругается на exe</h3>
+    <p>Файл не подписан. Добавьте в исключения или соберите exe сами (см. README проекта).</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <img src="assets/logo-white.png" alt="" width="20"> Fairin Loader · открытый проект ·
+  <a href="https://github.com/YOUR-NAME/fairin-loader">GitHub</a> ·
+  <a href="https://github.com/YOUR-NAME/fairin-loader/releases">Releases</a>
+</footer>
+</body>
+</html>
