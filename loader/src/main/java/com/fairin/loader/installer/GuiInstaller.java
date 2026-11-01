@@ -24,6 +24,8 @@ import java.util.List;
 /** Small Swing GUI: client profile install or dedicated server folder install. */
 final class GuiInstaller {
     static final String SEP = "────────── installed locally ──────────";
+    static final int MAX_RELEASES = 30;   // newest N stable releases in the dropdown
+    static final int MAX_SNAPSHOTS = 15;  // newest N snapshots (checkbox)
     private JFrame frame;
     private JComboBox<String> mode;
     private javax.swing.JTextField gameDirField;
@@ -212,8 +214,13 @@ final class GuiInstaller {
                 try {
                     releaseIds = ManifestHelper.releaseVersions(dir);
                     snapshotIds = ManifestHelper.snapshotVersions(dir);
+                    // keep the list short and useful: newest 30 releases / 15 snapshots
+                    if (releaseIds.size() > MAX_RELEASES) releaseIds = releaseIds.subList(0, MAX_RELEASES);
+                    if (snapshotIds.size() > MAX_SNAPSHOTS) snapshotIds = snapshotIds.subList(0, MAX_SNAPSHOTS);
                     manifestLoaded = true;
-                    say("Mojang manifest: " + releaseIds.size() + " releases, " + snapshotIds.size() + " snapshots");
+                    say("Mojang manifest: " + releaseIds.size() + " свежих релизов"
+                            + (snapshots.isSelected() ? ", " + snapshotIds.size() + " снапшотов" : "")
+                            + " (старые версии — через консоль: --mc <version>)");
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
                             rebuildVersions();
